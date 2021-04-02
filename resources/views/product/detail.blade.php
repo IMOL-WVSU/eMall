@@ -16,7 +16,7 @@
         <sup>{{ $product['product_tag'] }} | </sup>
         <sup>{{ $product['stock'] }} left</sup>
     </h1>
-    <h2>{{ $product['price'] }}</h2>
+    <h2>{{ $product['price'] }} PHP</h2>
     <p>{{ $product['product_description'] }}</p>
     <form action="../cart" method="post">
         @csrf

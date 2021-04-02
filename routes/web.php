@@ -30,3 +30,4 @@ Route::get('profile', [UserController::class, 'getProfile'])->middleware('auth')
 Route::post('updateProfile', [UserController::class, 'updateProfile'])->middleware('auth');
 Route::post('updateAddress', [UserController::class, 'updateAddress'])->middleware('auth');
 Route::get('order', [OrderController::class, 'getOrders'])->middleware('auth');
+Route::get('search', [ProductController::class, 'searchProducts']);
