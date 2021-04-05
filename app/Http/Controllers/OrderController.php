@@ -25,8 +25,14 @@ class OrderController extends Controller
         foreach($carts as $key=>$cart) {
             $order = new Order;
 
+            $address_full = $address[$key]->street. ", "
+                            .$address[$key]->brgy. ", "
+                            .$address[$key]->municipality. ", "
+                            .$address[$key]->province. " "
+                            .$address[$key]->zipCode;
+
             $order->user_id = Auth::id();
-            $order->address = $address;
+            $order->address = $address_full;
             $order->product_name = $products[$key]->product_name;
             $order->product_tag = $products[$key]->product_tag;
             $order->price = $products[$key]->price;
@@ -34,6 +40,13 @@ class OrderController extends Controller
             $order->total = $cart->quantity*$products[$key]->price;
 
             $order->save();
+
+            $product = Product::find($products[$key]->id);
+
+            $product->stock = ($products[$key]->stock)-($cart->quantity);
+            $product->sold = ($products[$key]->sold)+($cart->quantity);
+
+            $product->save();
         }
 
         $this->emptyCart();
@@ -53,8 +66,15 @@ class OrderController extends Controller
         //     'contact_number'=> $raw_data->contact_number,
         // ]);
 
-        return view('order', ['orders'=>$raw_data]);
-        // return $raw_data;
+        $raw_address = array();
+        foreach($raw_data as $data) {
+            // $address_unsorted = collect($data->address);
+            array_push($raw_address, $data->address);
+        }
+
+        return view('order', ['orders'=>$raw_data, 'address'=>$raw_address]);
+        // return $raw_address;
+        // return $raw_data[0]->address;
     }
 
     function emptyCart() {
@@ -71,5 +91,9 @@ class OrderController extends Controller
         $raw_data = Product::find($product_id);
 
         return $raw_data;
+    }
+
+    function deductProductStock($product_id) {
+
     }
 }

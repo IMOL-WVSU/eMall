@@ -18,12 +18,18 @@
     </h1>
     <h2>{{ $product['price'] }} PHP</h2>
     <p>{{ $product['product_description'] }}</p>
-    <form action="../cart" method="post">
-        @csrf
-        <input type="hidden" name="product_id" value={{ $product['id'] }}>
-        <label for="quantity">Qty</label>
-        <input type="number" name="quantity" id="" value=1>
-        <button type="submit">Add To Cart</button>
-    </form>
+    @if ($product['stock'] >= 1)
+        <form action="../cart" method="post">
+            @csrf
+            <input type="hidden" name="product_id" value={{ $product['id'] }}>
+            <label for="quantity">Qty</label>
+            <input type="number" name="quantity" min="0" value=1 oninput="this.value = 
+            !!this.value && Math.abs(this.value) >= 1 ? Math.abs(this.value) : 1">
+            <button type="submit">Add To Cart</button>
+        </form>
+    @else
+        <h3>Product Not Yet Available</h3>
+    @endif
+        
 </body>
 </html>

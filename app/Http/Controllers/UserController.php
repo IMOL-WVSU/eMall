@@ -29,7 +29,8 @@ class UserController extends Controller
     function updateProfile(Request $req) {
         $profile = User::find(Auth::id());
 
-        $profile->name = $req->name;
+        if($req->name != NULL)
+            $profile->name = $req->name;
 
         $profile->save();
 
@@ -57,13 +58,20 @@ class UserController extends Controller
         } else {
             $address_update = AddressOfUser::find($address[0]->id);
 
-            $address_update->address_name = $req->address_name;
-            $address_update->street = $req->street;
-            $address_update->brgy = $req->brgy;
-            $address_update->municipality = $req->municipality;
-            $address_update->province = $req->province;
-            $address_update->zipCode = $req->zipCode;
-            $address_update->contact_number = $req->contact_number;
+            if($req->address_name != NULL)
+                $address_update->address_name = $req->address_name;
+            if($req->street != NULL)
+                $address_update->street = $req->street;
+            if($req->brgy != NULL)
+                $address_update->brgy = $req->brgy;
+            if($req->municipality != NULL)
+                $address_update->municipality = $req->municipality;
+            if($req->province != NULL)
+                $address_update->province = $req->province;
+            if($req->zipCode != NULL)
+                $address_update->zipCode = $req->zipCode;
+            if($req->contact_number != NULL)
+                $address_update->contact_number = $req->contact_number;
 
             $address_update->save();
         }

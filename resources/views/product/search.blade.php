@@ -16,7 +16,7 @@
         <button type="submit">View Cart</button>
     </form>
     <h1>Search result for '{{ $query }}'</h1>
-    {{-- @if(!$products) --}}
+    @if($products)
         @foreach ($products as $product)
             <h2>{{ $product['product_name'] }}</h2>
             <h3>{{ $product['price'] }} PHP</h3>
@@ -26,8 +26,8 @@
                 <button type="submit">View Product</button>
             </a>
         @endforeach
-    {{-- @else
+    @else
         <h2>No products found.</h2>
-    @endempty --}}
+    @endempty
 </body>
 </html>

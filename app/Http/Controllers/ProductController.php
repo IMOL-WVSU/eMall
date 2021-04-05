@@ -20,6 +20,10 @@ class ProductController extends Controller
         $query = $req->input('query');
         $raw_data = Product::where('product_name', 'like', '%'.$query.'%')->get();
 
+        $isDataEmpty = collect($raw_data)->isEmpty();
+
+        if($isDataEmpty) $raw_data = null;
+
         return view('product.search', ['products'=>$raw_data, 'query'=>$query]);
     }
 }

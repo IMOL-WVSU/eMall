@@ -71,25 +71,25 @@
         <form action="updateAddress" method="post">
             @csrf
             <label for="address_name">Address Name</label>
-            <input name="address_name" />
+            <input value=" " name="address_name" />
             <br>
             <label for="street">Street</label>
-            <input name="street" >
+            <input value=" " name="street" >
             <br>
             <label for="brgy">Barangay</label>
-            <input name="brgy" >
+            <input value=" " name="brgy" >
             <br>
             <label for="municipality">Municipality</label>
-            <input name="municipality" >
+            <input value=" " name="municipality" >
             <br>
             <label for="province">Province</label>
-            <input name="province" >
+            <input value=" " name="province" >
             <br>
             <label for="zipCode">Zip Code</label>
-            <input name="zipCode" >
+            <input value=" " name="zipCode" >
             <br>
             <label for="contact_number">Contact Number</label>
-            <input name="contact_number" >
+            <input value=" " name="contact_number" >
             <br>
             <button type="submit">Update</button>
         </form>

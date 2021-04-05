@@ -36,7 +36,7 @@
     @foreach ($hot_products as $product)
         <h2>{{ $product['product_name'] }}</h2>
         <h3>{{ $product['price'] }} PHP</h3>
-        <h3>{{ $product['sold'] }}</h3>
+        <h3>{{ $product['sold'] }} sold</h3>
         <h3>{{ $product['product_tag'] }}</h3>
         <a href="product/{{ $product['id'] }}">
             <button type="submit">View Product</button>

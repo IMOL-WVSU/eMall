@@ -16,7 +16,7 @@
         @csrf
         <button type="submit">Home</button>
     </form>
-    @foreach ($orders as $order)
+    @foreach ($orders as $key=>$order)
         <h3>Order ID: {{ $order->id }}</h3>
         <h3>Product: {{ $order->product_name }}</h3>
         <h3>Category: {{ $order->product_tag }}</h3>
@@ -24,29 +24,7 @@
         <h3>Quantity: {{ $order->quantity }}</h3>
         <h3>Total: {{ $order->total }}</h3>
         <h3>Order Created: {{ $order->created_at }}</h3>
-        <h3>{{ $order->address }}</h3>
-
-        <?php
-            // $addr = array($order->address);
-            // foreach($addr as $address) {
-            //     echo "
-            //     <h3>Street:" + $address[0] +"</h3>
-            //     <h3>Barangay:"+$address[1]+"</h3>
-            //     <h3>Municipality:"+$address[2]+"</h3>
-            //     <h3>Province:"+$address-[3]+"</h3>
-            //     <h3>Zip Code:"+$address[4]+"</h3>
-            //     <h3>Contact Number:"+$address[5]+"</h3>";
-            // }
-        ?>
-        {{-- @foreach ($addresses as $address)
-            <h3>Street: {{ $address->street }}</h3>
-            <h3>Barangay: {{ $address->brgy }}</h3>
-            <h3>Municipality: {{ $address->municipality }}</h3>
-            <h3>Province: {{ $address->province }}</h3>
-            <h3>Zip Code: {{ $address->zipCode }}</h3>
-            <h3>Contact Number: {{ $address->contact_number }}</h3>
-        @endforeach --}}
-        <hr>
+        <h3>Address: {{ $order->address }}</h3>
     @endforeach
 </body>
 </html>
