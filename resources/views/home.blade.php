@@ -1,46 +1,47 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Home</title>
-</head>
-<body>
-    @if (Auth::id())
-        <h1>Welcome, {{ $user_name[0]['name'] }}</h1>
-        <form action="{{ route('logout') }}" method="post">
-            @csrf
-            <button type="submit">Logout</button>
-        </form>
-        <form action="profile" method="get">
-            @csrf
-            <button type="submit">Profile</button>
-        </form>
-        <form action="cart" method="get">
-            @csrf
-            <button type="submit">Cart ({{ $cart_items }})</button>
-        </form>
-    @else
-        <h1>Welcome, guest</h1>
-        <a href="login">Login</a>
-        <a href="register">Register</a>
-    @endif
-    
-    <form action="search">
-        <input type="text" name="query" id="query" placeholder="Search for...">
-        <button type="submit">Search</button>
-    </form>
+@extends('template/header')
 
-    <h1>Hot Products</h1>
-    @foreach ($hot_products as $product)
-        <h2>{{ $product['product_name'] }}</h2>
-        <h3>{{ $product['price'] }} PHP</h3>
-        <h3>{{ $product['sold'] }} sold</h3>
-        <h3>{{ $product['product_tag'] }}</h3>
-        <a href="product/{{ $product['id'] }}">
-            <button type="submit">View Product</button>
-        </a>
-    @endforeach
-</body>
-</html>
+@section('content')
+<div class="container pb-4">
+    @if(Auth::id())
+        <h1>Welcome, {{ $user_name[0]['name'] }}</h1>
+    @else 
+        <h1>Welcome, guest</h1>
+    @endif
+    <h2>Hot Products</h2>
+    <div class="row mx-2">
+        @foreach($hot_products as $product)
+        <div class="container col">
+            <a href="product/{{ $product['id'] }}" class="text-decoration-none text-light">
+                <div title="{{ $product['product_name'] }}" class="container rounded p-0 my-1 bg-success" style="min-width: 250px; max-width: 250px;">
+                  <img src="{{ asset($product['img_path']) }}" alt="{{ $product['product_name'] }}" style="width: 100%; height: 250px;">
+                   <div class="container py-2">
+                    <h5 class="font-weight-bold"  style="overflow: hidden; text-overflow: ellipsis;  white-space: nowrap">{{ $product['product_name'] }}</h5>
+                    <h5>{{ number_format($product['price'], 2, '.', ',') }} PHP</h5>
+                    <sup>{{ $product['product_tag'] }} | </sup>
+                    <sup>{{ $product['sold_today'] }} sold today</sup>
+                   </div>
+                </div>
+            </a>
+        </div>
+        @endforeach
+    </div>
+    <h2>Latest Products</h2>
+    <div class="row mx-2">
+        @foreach($latest_products as $product)
+            <div class="container col">
+                <a href="product/{{ $product['id'] }}" class="text-decoration-none text-light">
+                    <div title="{{ $product['product_name'] }}" class="container rounded p-0 my-1 bg-success" style="min-width: 250px; max-width: 250px;">
+                    <img src="{{ asset($product['img_path']) }}" alt="{{ $product['product_name'] }}" style="width: 100%; height: 250px;">
+                    <div class="container py-2">
+                        <h5 class="font-weight-bold"  style="overflow: hidden; text-overflow: ellipsis;  white-space: nowrap">{{ $product['product_name'] }}</h5>
+                        <h5>{{ number_format($product['price'], 2, '.', ',') }} PHP</h5>
+                        <sup>{{ $product['product_tag'] }} | </sup>
+                        <sup>{{ $product['stock'] }} available</sup>
+                    </div>
+                    </div>
+                </a>
+            </div>
+        @endforeach
+    </div>
+</div>
+@endsection

@@ -23,13 +23,17 @@ class OrderController extends Controller
         }
 
         foreach($carts as $key=>$cart) {
+            if($products[$key]->stock <= 0) continue;
+
             $order = new Order;
 
-            $address_full = $address[$key]->street. ", "
-                            .$address[$key]->brgy. ", "
-                            .$address[$key]->municipality. ", "
-                            .$address[$key]->province. " "
-                            .$address[$key]->zipCode;
+            if(collect($address)->isEmpty()) continue;
+
+            $address_full = $address[0]->street. ", "
+                            .$address[0]->brgy. ", "
+                            .$address[0]->municipality. ", "
+                            .$address[0]->province. " "
+                            .$address[0]->zipCode;
 
             $order->user_id = Auth::id();
             $order->address = $address_full;
@@ -45,6 +49,7 @@ class OrderController extends Controller
 
             $product->stock = ($products[$key]->stock)-($cart->quantity);
             $product->sold = ($products[$key]->sold)+($cart->quantity);
+            $product->sold_today = ($products[$key]->sold_today)+($cart->quantity);
 
             $product->save();
         }
@@ -55,26 +60,18 @@ class OrderController extends Controller
     }
 
     function getOrders() {
-        $raw_data = Order::where('user_id', Auth::id())->get();
-        // $raw_address = $raw_data->address->create([
-        //     'name'=> $raw_data->name,
-        //     'street'=> $raw_data->street,
-        //     'brgy'=> $raw_data->brgy,
-        //     'municipality'=> $raw_data->municipality,
-        //     'province'=> $raw_data->province,
-        //     'zipCode'=> $raw_data->zipCode,
-        //     'contact_number'=> $raw_data->contact_number,
-        // ]);
+        $raw_data = Order::where('user_id', Auth::id())->paginate(5);
 
         $raw_address = array();
         foreach($raw_data as $data) {
-            // $address_unsorted = collect($data->address);
             array_push($raw_address, $data->address);
         }
 
-        return view('order', ['orders'=>$raw_data, 'address'=>$raw_address]);
-        // return $raw_address;
-        // return $raw_data[0]->address;
+        return view(
+            'order',
+            ['orders'=>$raw_data, 
+            'address'=>$raw_address,
+            'page_title'=>"Orders"]);
     }
 
     function emptyCart() {
@@ -91,9 +88,5 @@ class OrderController extends Controller
         $raw_data = Product::find($product_id);
 
         return $raw_data;
-    }
-
-    function deductProductStock($product_id) {
-
     }
 }

@@ -13,7 +13,12 @@ class UserController extends Controller
         $raw_data = User::find(Auth::id());
         $raw_address = $this->getShippingAddress();
 
-        return view('profile', ['profile'=>$raw_data, 'address'=>$raw_address]);
+        return view(
+            'profile',
+            ['profile'=>$raw_data,
+            'address'=>$raw_address,
+            'page_title'=>($raw_data['name']."'s Profile")]
+        );
     }
 
     function getShippingAddress() {

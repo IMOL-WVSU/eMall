@@ -1,99 +1,112 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>{{ $profile->name }}</title>
-</head>
-<body>
-    <form action="{{ route('logout') }}" method="post">
-        @csrf
-        <button type="submit">Logout</button>
-    </form>
-    <form action="home" method="get">
-        @csrf
-        <button type="submit">Home</button>
-    </form>
-    <form action="cart" method="get">
-        @csrf
-        <button type="submit">View Cart</button>
-    </form>
-    <form action="order" method="get">
-        @csrf
-        <button type="submit">Past Purchases</button>
-    </form>
+@extends('template/header')
 
+@section('content')
+    
+<div class="container w-50">
     <h1>Profile</h1>
-    <form action="updateProfile" method="post">
+    <form action="updateProfile" method="post" class="mt-4">
         @csrf
-        <label for="name">Account Name</label>
-        <input name="name" value="{{ $profile->name }}">
+        <div class="input-group">
+            <label for="name" class="w-25 my-auto border-none">Account Name</label>
+            <input name="name" value="{{ $profile->name }}" class="form-control w-50 rounded">
+        </div>
         <br>
-        <label for="email">Email</label>
-        <input disabled name="email" value="{{ $profile->email }}">
+        <div class="input-group">
+            <label for="name" class="w-25 my-auto border-none" for="email">Email</label>
+            <input disabled name="email" value="{{ $profile->email }}" class="form-control w-50 rounded">
+        </div>
         <br>
-        <label for="username">Username</label>
-        <input disabled name="username" value="{{ $profile->username }}">
+        <div class="input-group">
+            <label for="username" class="w-25 my-auto border-none" >Username</label>
+            <input disabled name="username" value="{{ $profile->username }}" class="form-control w-50 rounded">
+        </div>
         <br>
-        <button type="submit">Update</button>
+        <button type="submit" class="float-end btn btn-outline-success">Update</button>
     </form>
-
+</div>
+<br><br>
+<div class="container w-50 mb-5 pb-4">
     <h1>Address</h1>
     @if($address)
-        <form action="updateAddress" method="post">
+        <form action="updateAddress" method="post" class="mt-4">
             @csrf
-            <label for="address_name">Address Name</label>
-            <input name="address_name" value="{{ $address[0]['address_name'] }}" />
+            <div class="input-group">
+                <label class="w-25 my-auto border-none" for="address_name">Address Name</label>
+                <input name="address_name" value="{{ $address[0]['address_name'] }}" class="form-control w-50 rounded">
+            </div>
             <br>
-            <label for="street">Street</label>
-            <input name="street" value="{{ $address[0]['street'] }}">
+            <div class="input-group">
+                <label class="w-25 my-auto border-none" for="street">Street</label>
+                <input class="form-control w-50 rounded" name="street" value="{{ $address[0]['street'] }}">
+            </div>
             <br>
-            <label for="brgy">Barangay</label>
-            <input name="brgy" value="{{ $address[0]['brgy'] }}">
+            <div class="input-group">
+                <label class="w-25 my-auto border-none" for="brgy">Barangay</label>
+                <input class="form-control w-50 rounded" name="brgy" value="{{ $address[0]['brgy'] }}">
+            </div>
             <br>
-            <label for="municipality">Municipality</label>
-            <input name="municipality" value="{{ $address[0]['municipality'] }}">
+            <div class="input-group">
+                <label class="w-25 my-auto border-none" for="municipality">Municipality</label>
+                <input class="form-control w-50 rounded" name="municipality" value="{{ $address[0]['municipality'] }}">
+            </div>
             <br>
-            <label for="province">Province</label>
-            <input name="province" value="{{ $address[0]['province'] }}">
+            <div class="input-group">
+                <label class="w-25 my-auto border-none" for="province">Province</label>
+                <input class="form-control w-50 rounded" name="province" value="{{ $address[0]['province'] }}">
+            </div>
             <br>
-            <label for="zipCode">Zip Code</label>
-            <input name="zipCode" value="{{ $address[0]['zipCode'] }}">
+            <div class="input-group">
+                <label class="w-25 my-auto border-none" for="zipCode">Zip Code</label>
+                <input class="form-control w-50 rounded" name="zipCode" value="{{ $address[0]['zipCode'] }}">
+            </div>
             <br>
-            <label for="contact_number">Contact Number</label>
-            <input name="contact_number" value="{{ $address[0]['contact_number'] }}">
+            <div class="input-group">
+                <label class="w-25 my-auto border-none" for="contact_number">Contact Number</label>
+                <input class="form-control w-50 rounded" name="contact_number" value="{{ $address[0]['contact_number'] }}">
+            </div>
             <br>
-            <button type="submit">Update</button>
+            <button type="submit" class="float-end btn btn-outline-success">Update</button>
         </form>
-        
     @else
-        <form action="updateAddress" method="post">
+        <form action="updateAddress" method="post" class="mt-4">
             @csrf
-            <label for="address_name">Address Name</label>
-            <input value=" " name="address_name" />
+            <div class="input-group">
+                <label for="address_name" class="w-25 my-auto border-none">Address Name</label>
+                <input value=" " name="address_name" class="form-control w-50 rounded">
+            </div>
             <br>
-            <label for="street">Street</label>
-            <input value=" " name="street" >
+            <div class="input-group">
+                <label for="street" class="w-25 my-auto border-none">Street</label>
+                <input class="form-control w-50 rounded" value=" " name="street" >
+            </div>
             <br>
-            <label for="brgy">Barangay</label>
-            <input value=" " name="brgy" >
+            <div class="input-group">
+                <label for="brgy" class="w-25 my-auto border-none">Barangay</label>
+                <input class="form-control w-50 rounded" value=" " name="brgy" >
+            </div>
             <br>
-            <label for="municipality">Municipality</label>
-            <input value=" " name="municipality" >
+            <div class="input-group">
+                <label class="w-25 my-auto border-none" for="municipality">Municipality</label>
+                <input class="form-control w-50 rounded" value=" " name="municipality" >
+            </div>
             <br>
-            <label for="province">Province</label>
-            <input value=" " name="province" >
+            <div class="input-group">
+                <label class="w-25 my-auto border-none" for="province">Province</label>
+                <input class="form-control w-50 rounded" value=" " name="province" >
+            </div>
             <br>
-            <label for="zipCode">Zip Code</label>
-            <input value=" " name="zipCode" >
+            <div class="input-group">
+                <label class="w-25 my-auto border-none" for="zipCode">Zip Code</label>
+                <input class="form-control w-50 rounded" value=" " name="zipCode" >
+            </div>
             <br>
-            <label for="contact_number">Contact Number</label>
-            <input value=" " name="contact_number" >
+            <div class="input-group">
+                <label class="w-25 my-auto border-none" for="contact_number">Contact Number</label>
+                <input class="form-control w-50 rounded" value=" " name="contact_number" >
+            </div>
             <br>
-            <button type="submit">Update</button>
+            <button type="submit" class="float-end btn btn-outline-success">Update</button>
         </form>
     @endempty
-    
-</body>
-</html>
+</div>
+@endsection

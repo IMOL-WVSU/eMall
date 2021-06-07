@@ -1,30 +1,22 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Orders</title>
-</head>
-<body>
-    <h1>Orders</h1>
-    <form action="{{ route('logout') }}" method="post">
-        @csrf
-        <button type="submit">Logout</button>
-    </form>
-    <form action="home" method="get">
-        @csrf
-        <button type="submit">Home</button>
-    </form>
-    @foreach ($orders as $key=>$order)
-        <h3>Order ID: {{ $order->id }}</h3>
-        <h3>Product: {{ $order->product_name }}</h3>
-        <h3>Category: {{ $order->product_tag }}</h3>
-        <h3>Price: {{ $order->price }}</h3>
-        <h3>Quantity: {{ $order->quantity }}</h3>
-        <h3>Total: {{ $order->total }}</h3>
-        <h3>Order Created: {{ $order->created_at }}</h3>
-        <h3>Address: {{ $order->address }}</h3>
-    @endforeach
-</body>
-</html>
+@extends('template/header')
+
+@section('content')
+    <div class="container w-75">
+        <h1>Orders</h1>
+        @foreach ($orders as $key=>$order)
+            <div class="bg-success rounded my-2 p-4 text-light">
+                <h5>Order ID: {{ $order->id }}</h5>
+                <h3 class="fw-bold">{{ $order->product_name }}</h3>
+                <h5>Category: {{ $order->product_tag }}</h5>
+                <h5>Price: {{ number_format($order->price, 2, '.', ',') }} PHP</h5>
+                <h5>Quantity: {{ $order->quantity }}</h5>
+                <h5>Total: {{ number_format($order->total, 2, '.', ',') }} PHP</h5>
+                <h5>Order Created: {{ $order->created_at }}</h5>
+                <h5>Shipped to: {{ $order->address }}</h5>
+            </div>
+        @endforeach
+        <div class="mt-4 text-success" aria-label="...">
+            {{ $orders->links() }}
+        </div>
+    </div>
+@endsection

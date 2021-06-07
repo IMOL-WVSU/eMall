@@ -7,6 +7,7 @@ use App\Actions\Fortify\ResetUserPassword;
 use App\Actions\Fortify\UpdateUserPassword;
 use App\Actions\Fortify\UpdateUserProfileInformation;
 use App\Models\User;
+use App\Models\Product;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Http\Request;
@@ -39,7 +40,7 @@ class FortifyServiceProvider extends ServiceProvider
         Fortify::resetUserPasswordsUsing(ResetUserPassword::class);
 
         Fortify::registerView(fn() => view('auth.register'));
-        Fortify::loginView(fn() => view('auth.login'));
+        Fortify::loginView(fn() => view('auth.login', ['total_product'=>$this->getTotalProducts()]));
         Fortify::verifyEmailView(fn() => view('auth.verify-email', ['email'=>$this->getUserEmail()]));
 
         RateLimiter::for('login', function (Request $request) {
@@ -55,5 +56,11 @@ class FortifyServiceProvider extends ServiceProvider
         $email = User::where('id', Auth::id())->get('email');
 
         return $email;
+    }
+
+    function getTotalProducts() {
+        $raw_data = Product::count();
+
+        return $raw_data;
     }
 }
