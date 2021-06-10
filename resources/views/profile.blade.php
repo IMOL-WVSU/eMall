@@ -21,9 +21,39 @@
             <input disabled name="username" value="{{ $profile->username }}" class="form-control w-50 rounded">
         </div>
         <br>
-        <button type="submit" class="float-end btn btn-outline-success">Update</button>
+        <div class="text-end">
+            <button type="submit" class="btn btn-outline-success">Update</button>
+        </div>
     </form>
 </div>
+<br><br>
+
+<div class="container w-50">
+    <h1>Update Password</h1>
+    <form action="{{ route('user-password.update') }}" class="mt-4" method="POST">
+        @csrf
+        @method('PUT')
+        <div class="input-group">
+            <label class="w-25 my-auto border-none" for="current_password">Current Password</label>
+            <input class="form-control w-50 rounded" type="password" name="current_password" id="">
+        </div>
+        <br>
+        <div class="input-group">
+            <label class="w-25 my-auto border-none" for="password">New Password</label>
+            <input class="form-control w-50 rounded" type="password" name="password" id="">
+        </div>
+        <br>
+        <div class="input-group">
+            <label class="w-25 my-auto border-none" for="password_confirmation">Confirm New Password</label>
+            <input class="form-control w-50 rounded" type="password" name="password_confirmation" id="">
+        </div>
+        <br>
+        <div class="text-end">
+            <button class="btn btn-success mt-2" type="submit">Change Password</button>
+        </div>
+    </form>
+</div>
+
 <br><br>
 <div class="container w-50 mb-5 pb-4">
     <h1>Address</h1>

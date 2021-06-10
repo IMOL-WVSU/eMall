@@ -39,41 +39,48 @@
 
        <div class="container">
             <div style="min-height: 20vh"></div>
-            <form class="container rounded form-group w-50 bg-light p-3 h-auto" action="{{ route('login') }}" method="post">
-                <h2 class="text-center text-success pb-2">Login</h2>
-                @csrf
-                <div class="input-group mb-3">
-                    <span class="input-group-text material-icons text-success" id="username-prepend">
-                        account_circle
-                    </span>
-                    <input
-                        type="text"
-                        class="form-control"
-                        placeholder="Username"
-                        aria-label="Username"
-                        aria-describedby="username-prepend"
-                        name="username"
-                        autocomplete="username"
-                    >
-                </div>
-                <div class="input-group mb-3">
-                    <span class="input-group-text material-icons text-success" id="password-prepend">
-                        password
-                    </span>
-                    <input
-                        type="password"
-                        class="form-control"
-                        placeholder="Password"
-                        aria-label="password"
-                        aria-describedby="password-prepend"
-                        name="password"
-                        autocomplete="password"
-                    >
-                </div>
-            
-                <button type="submit" class="btn btn-outline-success mt-3 w-100">
-                    Login
-                </button>
+            <div class="container bg-light rounded w-50">
+                <form class="form-group w-100 p-3 h-auto" action="{{ route('login') }}" method="post">
+                    <h2 class="text-center text-success pb-2">Login</h2>
+                    @csrf
+                    <div class="input-group mb-3">
+                        <span class="input-group-text material-icons text-success" id="username-prepend">
+                            account_circle
+                        </span>
+                        <input
+                            type="text"
+                            class="form-control"
+                            placeholder="Username"
+                            aria-label="Username"
+                            aria-describedby="username-prepend"
+                            name="username"
+                            autocomplete="username"
+                        >
+                    </div>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text material-icons text-success" id="password-prepend">
+                            password
+                        </span>
+                        <input
+                            type="password"
+                            class="form-control"
+                            placeholder="Password"
+                            aria-label="password"
+                            aria-describedby="password-prepend"
+                            name="password"
+                            autocomplete="password"
+                        >
+                    </div>
+                
+                    <button type="submit" class="btn btn-outline-success mt-3 w-100">
+                        Login
+                    </button>
+                </form>
+                
+                <form action="forgot-password" method="get" class="form-group w-100 p-3 py-0 my-0 h-auto">
+                    @csrf
+                    <button class="btn text-success" type="submit">Forgot Password</button>
+                </form>
 
                 <div class="d-flex mt-3 justify-content-center w-100">
                     <div class="bg-secondary mt-lg-2" style="width: 40px; height: 1px;color:#049635"></div>
@@ -86,18 +93,26 @@
                         Sign Up
                     </span>
                 </a>
-            </form>
+            </div>
+            @if (session('status'))
+                <div class="container bg-success rounded shadow my-2 w-50 p-2 px-3 text-white">
+                    {{ session('status') }}
+                </div>
+            @endif
+        
+            @if ($errors->any())
+                <div class="container bg-success rounded shadow mt-2 w-50 p-2 px-3 text-white">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
         </div>
     </div>
-    @if ($errors->any())
-        <div class="alert alert-danger">
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
+    
+
     <!-- JavaScript Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
 </body>

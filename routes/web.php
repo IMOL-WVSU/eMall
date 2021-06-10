@@ -26,21 +26,24 @@ Route::get('product/{id}', [ProductController::class, 'getProduct']);
 Route::get('product', fn() => redirect(''));
 Route::get('search', [ProductController::class, 'searchProducts']);
 
-Route::middleware('auth')->group(function() {
+Route::middleware(['auth', 'verified'])->group(function() {
     Route::post('cart', [CartController::class, 'addToCart']);
     Route::get('cart', [CartController::class, 'retrieveCart']);
+
     Route::post('checkout', [OrderController::class, 'placeOrder']);
     Route::post('remcart', [CartController::class, 'removeItem']);
+    
     Route::get('profile', [UserController::class, 'getProfile']);
     Route::post('updateProfile', [UserController::class, 'updateProfile']);
     Route::post('updateAddress', [UserController::class, 'updateAddress']);
+
     Route::get('order', [OrderController::class, 'getOrders']);
+
     Route::post('addproduct', [ProductController::class, 'addProduct']);
-    
     Route::post('editproduct', [ProductController::class, 'editProduct']);
     Route::post('remproduct', [ProductController::class, 'removeProduct']);
-    Route::post('registerSeller', [AdminController::class, 'registerSeller']);
 
+    Route::post('registerSeller', [AdminController::class, 'registerSeller']);
     Route::get('admin', [AdminController::class, 'viewAdmin']);
     Route::get('manageproduct', [AdminController::class, 'manageProduct']);
 });

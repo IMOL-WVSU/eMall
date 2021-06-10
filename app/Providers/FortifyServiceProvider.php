@@ -43,6 +43,10 @@ class FortifyServiceProvider extends ServiceProvider
         Fortify::loginView(fn() => view('auth.login', ['total_product'=>$this->getTotalProducts()]));
         Fortify::verifyEmailView(fn() => view('auth.verify-email', ['email'=>$this->getUserEmail()]));
 
+        Fortify::resetPasswordView(fn ($request) => view('auth.reset-password', ['request' => $request]));
+
+        Fortify::requestPasswordResetLinkView(fn() => view('auth.forgot-password'));
+
         RateLimiter::for('login', function (Request $request) {
             return Limit::perMinute(5)->by($request->email.$request->ip());
         });

@@ -15,12 +15,14 @@ class HomeController extends Controller
         $hot_products = $this->getHotProducts();
         $cart_item_count = $this->countCartItems();
         $latest_products = $this->getLatestProducts();
-
+        $most_products = $this->getMostProducts();
+        
         return view('home',
             ['user_name'=>$user_name,
             'hot_products'=>$hot_products,
             'cart_items'=>$cart_item_count,
             'latest_products'=>$latest_products,
+            'browse_products' => $most_products,
             'page_title'=>"Home"
             ]);
     }
@@ -45,6 +47,14 @@ class HomeController extends Controller
 
     function getLatestProducts() {
         $raw_data = Product::orderBy('id', 'desc')->take(4)->get();
+
+        return $raw_data;
+    }
+
+    function getMostProducts() {
+        $raw_data = Product::inRandomOrder()
+                            ->take(20)
+                            ->get();
 
         return $raw_data;
     }
