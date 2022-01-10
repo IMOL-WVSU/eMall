@@ -27,7 +27,7 @@
         </div>
     </nav>
 
-    <form action="{{ route('register') }}" method="post">
+    <form method="post">
         <div class="container vertical-center w-75">
             <div class="container w-50">
                 <div class="bg-light rounded p-3 shadow">
