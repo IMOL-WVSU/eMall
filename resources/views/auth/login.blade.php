@@ -40,7 +40,7 @@
        <div class="container">
             <div style="min-height: 20vh"></div>
             <div class="container bg-light rounded w-50">
-                <form class="form-group w-100 p-3 h-auto" action="{{ route('login') }}" method="post">
+                <form class="form-group w-100 p-3 h-auto" method="post">
                     <h2 class="text-center text-success pb-2">Login</h2>
                     @csrf
                     <div class="input-group mb-3">
